@@ -5,6 +5,7 @@
 
 2. Describe what a class is in relation to Object Oriented Programming
 3. Write a class definition, instantiate an object, define/inspect parameters, define/call class methods, define/code __init__ 
+4. Overview of Inheritance
 
 ## 2.  Describe what a class is in relation to Object Oriented Programming
 
@@ -121,73 +122,73 @@ inspect.getmembers(example)
 
 
 
-    [('__abs__', <method-wrapper '__abs__' of int object at 0x10134d5a0>),
-     ('__add__', <method-wrapper '__add__' of int object at 0x10134d5a0>),
-     ('__and__', <method-wrapper '__and__' of int object at 0x10134d5a0>),
-     ('__bool__', <method-wrapper '__bool__' of int object at 0x10134d5a0>),
+    [('__abs__', <method-wrapper '__abs__' of int object at 0x102d8a5a0>),
+     ('__add__', <method-wrapper '__add__' of int object at 0x102d8a5a0>),
+     ('__and__', <method-wrapper '__and__' of int object at 0x102d8a5a0>),
+     ('__bool__', <method-wrapper '__bool__' of int object at 0x102d8a5a0>),
      ('__ceil__', <function int.__ceil__>),
      ('__class__', int),
-     ('__delattr__', <method-wrapper '__delattr__' of int object at 0x10134d5a0>),
+     ('__delattr__', <method-wrapper '__delattr__' of int object at 0x102d8a5a0>),
      ('__dir__', <function int.__dir__()>),
-     ('__divmod__', <method-wrapper '__divmod__' of int object at 0x10134d5a0>),
+     ('__divmod__', <method-wrapper '__divmod__' of int object at 0x102d8a5a0>),
      ('__doc__',
       "int([x]) -> integer\nint(x, base=10) -> integer\n\nConvert a number or string to an integer, or return 0 if no arguments\nare given.  If x is a number, return x.__int__().  For floating point\nnumbers, this truncates towards zero.\n\nIf x is not a number or if base is given, then x must be a string,\nbytes, or bytearray instance representing an integer literal in the\ngiven base.  The literal can be preceded by '+' or '-' and be surrounded\nby whitespace.  The base defaults to 10.  Valid bases are 0 and 2-36.\nBase 0 means to interpret the base from the string as an integer literal.\n>>> int('0b100', base=0)\n4"),
-     ('__eq__', <method-wrapper '__eq__' of int object at 0x10134d5a0>),
-     ('__float__', <method-wrapper '__float__' of int object at 0x10134d5a0>),
+     ('__eq__', <method-wrapper '__eq__' of int object at 0x102d8a5a0>),
+     ('__float__', <method-wrapper '__float__' of int object at 0x102d8a5a0>),
      ('__floor__', <function int.__floor__>),
      ('__floordiv__',
-      <method-wrapper '__floordiv__' of int object at 0x10134d5a0>),
+      <method-wrapper '__floordiv__' of int object at 0x102d8a5a0>),
      ('__format__', <function int.__format__(format_spec, /)>),
-     ('__ge__', <method-wrapper '__ge__' of int object at 0x10134d5a0>),
+     ('__ge__', <method-wrapper '__ge__' of int object at 0x102d8a5a0>),
      ('__getattribute__',
-      <method-wrapper '__getattribute__' of int object at 0x10134d5a0>),
+      <method-wrapper '__getattribute__' of int object at 0x102d8a5a0>),
      ('__getnewargs__', <function int.__getnewargs__()>),
-     ('__gt__', <method-wrapper '__gt__' of int object at 0x10134d5a0>),
-     ('__hash__', <method-wrapper '__hash__' of int object at 0x10134d5a0>),
-     ('__index__', <method-wrapper '__index__' of int object at 0x10134d5a0>),
-     ('__init__', <method-wrapper '__init__' of int object at 0x10134d5a0>),
+     ('__gt__', <method-wrapper '__gt__' of int object at 0x102d8a5a0>),
+     ('__hash__', <method-wrapper '__hash__' of int object at 0x102d8a5a0>),
+     ('__index__', <method-wrapper '__index__' of int object at 0x102d8a5a0>),
+     ('__init__', <method-wrapper '__init__' of int object at 0x102d8a5a0>),
      ('__init_subclass__', <function int.__init_subclass__>),
-     ('__int__', <method-wrapper '__int__' of int object at 0x10134d5a0>),
-     ('__invert__', <method-wrapper '__invert__' of int object at 0x10134d5a0>),
-     ('__le__', <method-wrapper '__le__' of int object at 0x10134d5a0>),
-     ('__lshift__', <method-wrapper '__lshift__' of int object at 0x10134d5a0>),
-     ('__lt__', <method-wrapper '__lt__' of int object at 0x10134d5a0>),
-     ('__mod__', <method-wrapper '__mod__' of int object at 0x10134d5a0>),
-     ('__mul__', <method-wrapper '__mul__' of int object at 0x10134d5a0>),
-     ('__ne__', <method-wrapper '__ne__' of int object at 0x10134d5a0>),
-     ('__neg__', <method-wrapper '__neg__' of int object at 0x10134d5a0>),
+     ('__int__', <method-wrapper '__int__' of int object at 0x102d8a5a0>),
+     ('__invert__', <method-wrapper '__invert__' of int object at 0x102d8a5a0>),
+     ('__le__', <method-wrapper '__le__' of int object at 0x102d8a5a0>),
+     ('__lshift__', <method-wrapper '__lshift__' of int object at 0x102d8a5a0>),
+     ('__lt__', <method-wrapper '__lt__' of int object at 0x102d8a5a0>),
+     ('__mod__', <method-wrapper '__mod__' of int object at 0x102d8a5a0>),
+     ('__mul__', <method-wrapper '__mul__' of int object at 0x102d8a5a0>),
+     ('__ne__', <method-wrapper '__ne__' of int object at 0x102d8a5a0>),
+     ('__neg__', <method-wrapper '__neg__' of int object at 0x102d8a5a0>),
      ('__new__', <function int.__new__(*args, **kwargs)>),
-     ('__or__', <method-wrapper '__or__' of int object at 0x10134d5a0>),
-     ('__pos__', <method-wrapper '__pos__' of int object at 0x10134d5a0>),
-     ('__pow__', <method-wrapper '__pow__' of int object at 0x10134d5a0>),
-     ('__radd__', <method-wrapper '__radd__' of int object at 0x10134d5a0>),
-     ('__rand__', <method-wrapper '__rand__' of int object at 0x10134d5a0>),
-     ('__rdivmod__', <method-wrapper '__rdivmod__' of int object at 0x10134d5a0>),
+     ('__or__', <method-wrapper '__or__' of int object at 0x102d8a5a0>),
+     ('__pos__', <method-wrapper '__pos__' of int object at 0x102d8a5a0>),
+     ('__pow__', <method-wrapper '__pow__' of int object at 0x102d8a5a0>),
+     ('__radd__', <method-wrapper '__radd__' of int object at 0x102d8a5a0>),
+     ('__rand__', <method-wrapper '__rand__' of int object at 0x102d8a5a0>),
+     ('__rdivmod__', <method-wrapper '__rdivmod__' of int object at 0x102d8a5a0>),
      ('__reduce__', <function int.__reduce__()>),
      ('__reduce_ex__', <function int.__reduce_ex__(protocol, /)>),
-     ('__repr__', <method-wrapper '__repr__' of int object at 0x10134d5a0>),
+     ('__repr__', <method-wrapper '__repr__' of int object at 0x102d8a5a0>),
      ('__rfloordiv__',
-      <method-wrapper '__rfloordiv__' of int object at 0x10134d5a0>),
-     ('__rlshift__', <method-wrapper '__rlshift__' of int object at 0x10134d5a0>),
-     ('__rmod__', <method-wrapper '__rmod__' of int object at 0x10134d5a0>),
-     ('__rmul__', <method-wrapper '__rmul__' of int object at 0x10134d5a0>),
-     ('__ror__', <method-wrapper '__ror__' of int object at 0x10134d5a0>),
+      <method-wrapper '__rfloordiv__' of int object at 0x102d8a5a0>),
+     ('__rlshift__', <method-wrapper '__rlshift__' of int object at 0x102d8a5a0>),
+     ('__rmod__', <method-wrapper '__rmod__' of int object at 0x102d8a5a0>),
+     ('__rmul__', <method-wrapper '__rmul__' of int object at 0x102d8a5a0>),
+     ('__ror__', <method-wrapper '__ror__' of int object at 0x102d8a5a0>),
      ('__round__', <function int.__round__>),
-     ('__rpow__', <method-wrapper '__rpow__' of int object at 0x10134d5a0>),
-     ('__rrshift__', <method-wrapper '__rrshift__' of int object at 0x10134d5a0>),
-     ('__rshift__', <method-wrapper '__rshift__' of int object at 0x10134d5a0>),
-     ('__rsub__', <method-wrapper '__rsub__' of int object at 0x10134d5a0>),
+     ('__rpow__', <method-wrapper '__rpow__' of int object at 0x102d8a5a0>),
+     ('__rrshift__', <method-wrapper '__rrshift__' of int object at 0x102d8a5a0>),
+     ('__rshift__', <method-wrapper '__rshift__' of int object at 0x102d8a5a0>),
+     ('__rsub__', <method-wrapper '__rsub__' of int object at 0x102d8a5a0>),
      ('__rtruediv__',
-      <method-wrapper '__rtruediv__' of int object at 0x10134d5a0>),
-     ('__rxor__', <method-wrapper '__rxor__' of int object at 0x10134d5a0>),
-     ('__setattr__', <method-wrapper '__setattr__' of int object at 0x10134d5a0>),
+      <method-wrapper '__rtruediv__' of int object at 0x102d8a5a0>),
+     ('__rxor__', <method-wrapper '__rxor__' of int object at 0x102d8a5a0>),
+     ('__setattr__', <method-wrapper '__setattr__' of int object at 0x102d8a5a0>),
      ('__sizeof__', <function int.__sizeof__()>),
-     ('__str__', <method-wrapper '__str__' of int object at 0x10134d5a0>),
-     ('__sub__', <method-wrapper '__sub__' of int object at 0x10134d5a0>),
+     ('__str__', <method-wrapper '__str__' of int object at 0x102d8a5a0>),
+     ('__sub__', <method-wrapper '__sub__' of int object at 0x102d8a5a0>),
      ('__subclasshook__', <function int.__subclasshook__>),
-     ('__truediv__', <method-wrapper '__truediv__' of int object at 0x10134d5a0>),
+     ('__truediv__', <method-wrapper '__truediv__' of int object at 0x102d8a5a0>),
      ('__trunc__', <function int.__trunc__>),
-     ('__xor__', <method-wrapper '__xor__' of int object at 0x10134d5a0>),
+     ('__xor__', <method-wrapper '__xor__' of int object at 0x102d8a5a0>),
      ('bit_length', <function int.bit_length()>),
      ('conjugate', <function int.conjugate>),
      ('denominator', 1),
@@ -230,10 +231,10 @@ while len(mccalister) >= 3:
 
 ```
 
-    ['Dann' 'Chum' 'Jason'] ['w']
-    ['Jacob' 'Matt' 'Johnhoy'] ['z']
-    ['Leana' 'Luluva' 'Adam'] ['y']
-    ['Karim' 'Maximilian' 'Amanda'] ['x']
+    ['Adam' 'Jason' 'Leana'] ['w']
+    ['Karim' 'Amanda' 'Chum'] ['x']
+    ['Matt' 'Johnhoy' 'Maximilian'] ['y']
+    ['Jacob' 'Dann' 'Luluva'] ['z']
 
 
 # 3. Write a class definition, instantiate an object, define/inspect parameters, define/call class methods 
@@ -375,7 +376,6 @@ civic.honk()
 ```
 
     Beep beep
-    4
     Beep beep
 
 
@@ -482,7 +482,7 @@ civic = Car(doors = 4, True)
 ```
 
 
-      File "<ipython-input-260-6046029021d3>", line 2
+      File "<ipython-input-29-6046029021d3>", line 2
         civic = Car(doors = 4, True)
                               ^
     SyntaxError: positional argument follows keyword argument
@@ -578,6 +578,69 @@ print(civic.moving)
     True
     Screeech!
     False
+
+
+## 4. Overview of inheritance
+
+We can also define classes in terms of *other* classes, in which cases the new classes **inherit** the attributes and methods from the classes in terms of which they're defined.
+
+Suppose we decided we want to create an electric car class.
+
+
+```python
+#  Then we can add more attributes
+class ElectricCar(Car):
+    """Automotive object"""
+    
+    # default arguments included now in __init__
+    def __init__(self, hybrid=False):
+        super().__init__()
+        self.hybrid = True 
+```
+
+
+```python
+prius = ElectricCar()
+prius.honk()
+```
+
+    Beep beep
+
+
+
+```python
+#  And we can overwrite methods and parent attributes
+class ElectricCar(Car):
+    """Automotive object"""
+    
+    # default arguments included now in __init__
+    def __init__(self, hybrid=False):
+        
+        # Prius owners are calmer than the average car owner
+        super().__init__(driver_mood='serene')
+        
+        self.hybrid = True
+        
+    # overwrite inheritd methods
+    
+    def go(self):
+        
+        print('Whirrrrrr')
+        self.moving = True
+```
+
+
+```python
+prius = ElectricCar()
+print(prius.moving)
+prius.go()
+prius.moving
+print(prius.driver_mood)
+```
+
+    False
+    Whirrrrrr
+    serene
 
 
 
