@@ -5,6 +5,7 @@
 
 2. Describe what a class is in relation to Object Oriented Programming
 3. Write a class definition, instantiate an object, define/inspect parameters, define/call class methods, define/code __init__ 
+4. Overview of Inheritance
 
 ## 2.  Describe what a class is in relation to Object Oriented Programming
 
@@ -90,9 +91,13 @@ Make sure the method works by calling it, then printing the attribute.
 class Car:
     """Automotive object"""
     
-    wheels = 4                      # These are attributes of *every* car.
-    doors = 4
-    moving = False
+     # default arguments included now in __init__
+    def __init__(self, doors=4, sedan=False, driver_mood='peaceful', moving=False):
+        
+        self.doors = doors
+        self.sedan = sedan
+        self.moving = moving
+        self.driver_mood = driver_mood
 
     def honk(self):                   # These are methods we can call on *any* car.
         print('Beep beep')
@@ -105,3 +110,9 @@ class Car:
         self.moving = False
         print('Screeech!')
 ```
+
+## 4. Overview of inheritance
+
+We can also define classes in terms of *other* classes, in which cases the new classes **inherit** the attributes and methods from the classes in terms of which they're defined.
+
+Suppose we decided we want to create an electric car class.
