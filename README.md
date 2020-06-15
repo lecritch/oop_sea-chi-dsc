@@ -2,10 +2,10 @@
 # Object Oriented Programming
 
 ## Agenda
-
 2. Describe what a class is in relation to Object Oriented Programming
 3. Write a class definition, instantiate an object, define/inspect parameters, define/call class methods, define/code __init__ 
 4. Overview of Inheritance
+5. Important data science tools through the lens of objects: Standard Scaler and one-hot-encoder
 
 ## 2.  Describe what a class is in relation to Object Oriented Programming
 
@@ -643,7 +643,347 @@ print(prius.driver_mood)
     serene
 
 
+## 5. Important data science tools through the lens of objects: 
+
+We are becomming more and more familiar with a series of methods with names such as fit or fit_transform.
+
+After instantiating an instance of a Standard Scaler, Linear Regression model, or One Hot Encoder, we use fit to learn about the dataset and save what is learned. What is learned is saved in the attributes.
+
+### 1. Standard Scaler 
+
+The standard scaler takes a series and, for each element, computes the absolute value of the difference from the point to the mean of the series, and divides by the standard deviation.
+
+$\Large z = \frac{|x - \mu|}{s}$
+
+What attributes and methods are available for a Standard Scaler object? Let's check out the code on [GitHub](https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/preprocessing/_data.py)!
+
+## Attributes
+
+### `.scale_`
+
 
 ```python
+from sklearn.preprocessing import StandardScaler
+
+# instantiate a standard scaler object
+ss = StandardScaler()
+
+# We can instantiate as many scaler objects as we want
+maxs_scaler = StandardScaler()
+```
+
+
+```python
+# Let's create a dataframe with two series
+
+series_1 = np.random.normal(3,1,1000)
+print(series_1.mean())
+print(series_1.std())
+```
+
+    3.0432788793378815
+    1.0030391214164902
+
+
+
+```python
+ss.fit(series_1.reshape(-1,1))
+
+# standard deviation is saved in the attribute scale_
+ss.scale_
+```
+
+
+
+
+    array([1.00303912])
+
+
+
+
+```python
+# mean is saved into the attribut mean
+ss.mean_
+```
+
+
+
+
+    array([3.04327888])
+
+
+
+
+```python
+# Knowledge Check
+
+# What value should I put into the standard scaler to make the equality below return 0
+
+ss.transform([])
+```
+
+
+    ---------------------------------------------------------------------------
+
+    ValueError                                Traceback (most recent call last)
+
+    <ipython-input-353-66adfde57247> in <module>
+          3 # What value should I put into the standard scaler to make the equality below return 0
+          4 
+    ----> 5 ss.transform([])
+    
+
+    ~/anaconda3/lib/python3.7/site-packages/sklearn/preprocessing/_data.py in transform(self, X, copy)
+        793         X = check_array(X, accept_sparse='csr', copy=copy,
+        794                         estimator=self, dtype=FLOAT_DTYPES,
+    --> 795                         force_all_finite='allow-nan')
+        796 
+        797         if sparse.issparse(X):
+
+
+    ~/anaconda3/lib/python3.7/site-packages/sklearn/utils/validation.py in check_array(array, accept_sparse, accept_large_sparse, dtype, order, copy, force_all_finite, ensure_2d, allow_nd, ensure_min_samples, ensure_min_features, warn_on_dtype, estimator)
+        554                     "Reshape your data either using array.reshape(-1, 1) if "
+        555                     "your data has a single feature or array.reshape(1, -1) "
+    --> 556                     "if it contains a single sample.".format(array))
+        557 
+        558         # in the future np.flexible dtypes will be handled like object dtypes
+
+
+    ValueError: Expected 2D array, got 1D array instead:
+    array=[].
+    Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
+
+
+
+```python
+# we can then use these attributes to transform objects
+np.random.seed(42)
+random_numbers = np.random.normal(3,1, 2)
+random_numbers
+```
+
+
+
+
+    array([3.49671415, 2.8617357 ])
+
+
+
+
+```python
+ss.transform(random_numbers.reshape(-1,1))
+```
+
+
+
+
+    array([[ 0.4520614 ],
+           [-0.18099312]])
+
+
+
+
+```python
+# We can also use a scaler on a DataFrame
+series_1 = np.random.normal(3,1,1000)
+series_2 = np.random.uniform(0,100, 1000)
+df_2 = pd.DataFrame([series_1, series_2]).T
+ss_df = StandardScaler()
+ss_df.fit_transform(df_2)
+
+```
+
+
+
+
+    array([[ 0.63918361, -1.63325007],
+           [ 1.53240185,  1.50265028],
+           [-0.260668  , -1.56258467],
+           ...,
+           [ 0.56254398, -1.61544876],
+           [ 1.40620165, -1.36827099],
+           [ 0.92178475, -0.56807826]])
+
+
+
+
+```python
+ss_df.transform([[5, 50]])
+```
+
+
+
+
+    array([[ 2.01911307, -0.00948621]])
+
+
+
+## Exercise One-hot Encoder
+
+Another object that you will use often is OneHotEncoder from sklearn. It is recommended over pd.get_dummies() because it can trained, with the learned informed stored in the attributes of the object.
+
+
+```python
+from sklearn.preprocessing import OneHotEncoder
+```
+
+
+```python
+np.random.seed(42)
+# Let's create a dataframe that has days of the week and number of orders. 
+
+days = np.random.choice(['m','t', 'w','th','f','s','su'], 1000)
+orders = np.random.randint(0,1000,1000)
+
+df = pd.DataFrame([days, orders]).T
+df.columns = ['days', 'orders']
+df.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>days</th>
+      <th>orders</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>su</td>
+      <td>758</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>th</td>
+      <td>105</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>f</td>
+      <td>562</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>su</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>w</td>
+      <td>132</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Let's interact with an important parameters which we can pass when instantiating the OneHotEncoder object:` drop`.  
+
+By dropping column, we avoid the [dummy variable trap](https://en.wikipedia.org/wiki/Dummy_variable_(statistics)).  
+
+By passing `drop = True`, sklearn drops the first category it happens upon.  In this case, that is 'su'.  But what if we want to drop 'm'.  We can pass an array like object in as parameter to specify which column to drop.
+
+
+
+
+
+```python
+# Instantiate the OHE object with a param that tells it to drop Monday
+ohe = None
+```
+
+
+```python
+# Now, fit_transform the days column of the dataframe
+
+ohe_array = None
+```
+
+
+```python
+# look at __dict__ and checkout drop_idx_
+# did it do what you wanted it to do?
+ohe.__dict__
+```
+
+
+
+
+    {'categories': 'auto',
+     'sparse': True,
+     'dtype': numpy.float64,
+     'handle_unknown': 'error',
+     'drop': array(['m'], dtype=object),
+     'categories_': [array(['f', 'm', 's', 'su', 't', 'th', 'w'], dtype=object)],
+     'drop_idx_': array([1])}
+
+
+
+
+```python
+# check out the categories_ attribute
+ohe.categories_
+```
+
+
+
+
+    [array(['f', 'm', 's', 'su', 't', 'th', 'w'], dtype=object)]
+
+
+
+
+```python
+# Check out the object itself
+ohe_matrix
+```
+
+
+
+
+    <1000x6 sparse matrix of type '<class 'numpy.float64'>'
+    	with 844 stored elements in Compressed Sparse Row format>
+
+
+
+It is a sparse matrix, which is a matrix that is composed mostly of zeros
+
+
+```python
+# We can convert it to an array like so
+oh_df = pd.DataFrame.sparse.from_spmatrix(ohe_matrix)
+```
+
+
+```python
+# Now, using the categories_ attribute, set the column names to the correct days of the week
+# you can use drop_idx_ for this as well
+
+
+```
+
+
+```python
+# Now, add the onehotencoded columns to the original df, and drop the days column
 
 ```
