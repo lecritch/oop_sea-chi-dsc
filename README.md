@@ -2,10 +2,17 @@
 # Object Oriented Programming
 
 ## Agenda
+1. Why a data scientist should learn about OOP
 2. Describe what a class is in relation to Object Oriented Programming
 3. Write a class definition, instantiate an object, define/inspect parameters, define/call class methods, define/code __init__ 
 4. Overview of Inheritance
 5. Important data science tools through the lens of objects: Standard Scaler and one-hot-encoder
+
+# 1. Why a data scientist should learn about OOP
+
+  - By becoming familiar with the principles of OOP, you will increase your knowledge of what's possible.  Much of what you might think you need to code by hand is already built into the objects.
+  - As you have begun to learn, much of the data science workflow depends on learning about a dataset. The way that Python remembers what is learned is via storing it in objects. 
+  - Via this storage process, you will be able to save learning for future use.  This will have huge implications when we get to datasets that are large and take a very long time to train. 
 
 ## 2.  Describe what a class is in relation to Object Oriented Programming
 
