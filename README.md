@@ -2,10 +2,10 @@
 # Object Oriented Programming
 
 ## Agenda
-
 2. Describe what a class is in relation to Object Oriented Programming
 3. Write a class definition, instantiate an object, define/inspect parameters, define/call class methods, define/code __init__ 
 4. Overview of Inheritance
+5. Important data science tools through the lens of objects: Standard Scaler and one-hot-encoder
 
 ## 2.  Describe what a class is in relation to Object Oriented Programming
 
@@ -116,3 +116,246 @@ class Car:
 We can also define classes in terms of *other* classes, in which cases the new classes **inherit** the attributes and methods from the classes in terms of which they're defined.
 
 Suppose we decided we want to create an electric car class.
+
+## 5. Important data science tools through the lens of objects: 
+
+We are becomming more and more familiar with a series of methods with names such as fit or fit_transform.
+
+After instantiating an instance of a Standard Scaler, Linear Regression model, or One Hot Encoder, we use fit to learn about the dataset and save what is learned. What is learned is saved in the attributes.
+
+### 1. Standard Scaler 
+
+The standard scaler takes a series and, for each element, computes the absolute value of the difference from the point to the mean of the series, and divides by the standard deviation.
+
+$\Large z = \frac{|x - \mu|}{s}$
+
+What attributes and methods are available for a Standard Scaler object? Let's check out the code on [GitHub](https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/preprocessing/_data.py)!
+
+## Attributes
+
+### `.scale_`
+
+
+```python
+ss.transform([ss.mean_])
+```
+
+
+
+
+    array([[0.]])
+
+
+
+## Exercise One-hot Encoder
+
+Another object that you will use often is OneHotEncoder from sklearn. It is recommended over pd.get_dummies() because it can trained, with the learned informed stored in the attributes of the object.
+
+Let's interact with an important parameters which we can pass when instantiating the OneHotEncoder object:` drop`.  
+
+By dropping column, we avoid the [dummy variable trap](https://en.wikipedia.org/wiki/Dummy_variable_(statistics)).  
+
+By passing `drop = True`, sklearn drops the first category it happens upon.  In this case, that is 'su'.  But what if we want to drop 'm'.  We can pass an array like object in as parameter to specify which column to drop.
+
+
+
+
+
+```python
+# Instantiate a OneHotEncoder object
+
+ohe = OneHotEncoder(drop=['m'])
+```
+
+
+```python
+ohe_matrix = ohe.fit_transform(df[['days']])
+```
+
+It is a sparse matrix, which is a matrix that is composed mostly of zeros
+
+
+```python
+ohe_columns = list(ohe.categories_[0])
+ohe_columns.pop(int(ohe.drop_idx_))
+oh_df.columns = ohe_columns
+oh_df.head()
+oh_df.columns = ohe_columns
+oh_df.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>f</th>
+      <th>s</th>
+      <th>su</th>
+      <th>t</th>
+      <th>th</th>
+      <th>w</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+# Now, add the onehotencoded columns to the original df, and drop the days column
+
+df = df.join(oh_df).drop('days', axis=1)
+df.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>orders</th>
+      <th>f</th>
+      <th>s</th>
+      <th>su</th>
+      <th>t</th>
+      <th>th</th>
+      <th>w</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>758</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>105</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>562</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>80</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>132</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
