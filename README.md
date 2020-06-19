@@ -3,18 +3,31 @@
 
 ## Agenda
 1. Why a data scientist should learn about OOP
-2. Describe what a class is in relation to Object Oriented Programming
-3. Write a class definition, instantiate an object, define/inspect parameters, define/call class methods, define/code __init__ 
-4. Overview of Inheritance
-5. Important data science tools through the lens of objects: Standard Scaler and one-hot-encoder
+2. "Everything in Python is an object"  
+3. Define attributes, methods, and dot notation
+4. Describe the relationship of classes and objectes, and learn to code classes
+5. Overview of Inheritance
+6. Important data science tools through the lens of objects: Standard Scaler and One-Hot-Encoder
 
 # 1. Why a data scientist should learn about OOP
 
-  - By becoming familiar with the principles of OOP, you will increase your knowledge of what's possible.  Much of what you might think you need to code by hand is already built into the objects.
-  - As you have begun to learn, much of the data science workflow depends on learning about a dataset. The way that Python remembers what is learned is via storing it in objects. 
-  - Via this storage process, you will be able to save learning for future use.  This will have huge implications when we get to datasets that are large and take a very long time to train. 
+![hackerman](https://media.giphy.com/media/MM0Jrc8BHKx3y/giphy.gif)
 
-## 2.  Describe what a class is in relation to Object Oriented Programming
+  - By becoming familiar with the principles of OOP, you will increase your knowledge of what's possible.  Much of what you might think you need to code by hand is already built into the objects.
+  - With a knowledge of classes and how objects store information, you will develop a better sense of when the learning in machine learning occurs in the code, and after that learning occurs, how to access the information gained.
+  - You become comfortable reading other people's code, which will improve your own code.
+  - Improving your code will separate you from other candidates on the job market and in interviews.
+  - You will also develop knowledge of the OOP family of programming languages, what are the strengths and weakness of Python, and the strengths and weaknesses of other language families.
+
+  
+Let's begin by taking a look at the source code for [Sklearn's standard scalar](https://github.com/scikit-learn/scikit-learn/blob/fd237278e/sklearn/preprocessing/_data.py#L517)
+
+Take a minute to peruse the source code on your own.  
+
+
+
+# 2. "Everything in Python is an object"  
+
 
 Python is an object-oriented programming language. You'll hear people say that "everything is an object" in Python. What does this mean?
 
@@ -55,13 +68,6 @@ def square_and_add_ten(x):
 
 Now imagine a further abstraction: Before, creating a function was about making a certain algorithm available to different inputs. Now I want to make that function available to different **objects**.
 
-An object is what we get out of this further abstraction. Each object is an instance of a **class** that defines a bundle of attributes and functions (now, as proprietary to the object type, called *methods*), the point being that **every object of that class will automatically have those proprietary attributes and methods**.
-
-A class is like a blueprint that describes how to create a specific type of object.
-
-![blueprint](img/blueprint.jpeg)
-
-
 Even Python integers are objects. Consider:
 
 
@@ -83,7 +89,7 @@ type(x)
 
 
 
-By setting x equal to an integer, I'm imbuing x with the attributes and methods of the integer class.
+By setting x equal to an integer, I'm imbuing x with the methods of the integer class.
 
 
 ```python
@@ -109,142 +115,519 @@ x.__float__()
 
 
 
-For more details on this general feature of Python, see [here](https://jakevdp.github.io/WhirlwindTourOfPython/03-semantics-variables.html).
+Python is dynamically typed, meaning you don't have to instruct it as to what type of object your variable is.  
+A variable is a pointer to where an object is stored in memory.
 
-# Exercise
 
-## Look up a different type and find either a class or attribute that you did not know existed
+```python
+# interesting side note about how variables operate in Python
+```
 
-There is a nice library, inspect, which can be used to look at the different attributes and methods associated with builtin objects.
+
+```python
+print(hex(id(x)))
+```
+
+    0x1012d45e0
 
 
 
 ```python
-import inspect
+y = 3
+```
 
-example = 1
+
+```python
+print(hex(id(y)))
+```
+
+    0x1012d45e0
+
+
+
+```python
+# this can have implications 
+
+x_list = [1,2,3,4]
+y_list = x_list
+
+x_list.pop()
+print(x_list)
+print(y_list)
+```
+
+    [1, 2, 3]
+    [1, 2, 3]
+
+
+
+```python
+# when you use copy(), you create a shallow copy of the object
+z_list = y_list.copy()
+y_list.pop()
+print(y_list)
+print(z_list)
+```
+
+    [1, 2]
+    [1, 2, 3]
+
+
+
+```python
+a_list = [[1,2,3], [4,5,6]]
+b_list = a_list.copy()
+a_list[0][0] ='z'
+b_list
+```
+
+
+
+
+    [['z', 2, 3], [4, 5, 6]]
+
+
+
+
+```python
+import copy
+
+#deepcopy is needed for mutable objects
+a_list = [[1,2,3], [4,5,6]]
+b_list = copy.deepcopy(a_list)
+a_list[0][0] ='z'
+b_list
+```
+
+
+
+
+    [[1, 2, 3], [4, 5, 6]]
+
+
+
+For more details on this general feature of Python, see [here](https://jakevdp.github.io/WhirlwindTourOfPython/03-semantics-variables.html).
+For more on shallow and deepcopy, go [here](https://docs.python.org/3/library/copy.html#copy.deepcopy)
+
+# 3. Define attributes, methods, and dot notation
+
+Dot notation is used to access both attributes and methods.
+
+Take for example our familiar friend, the [Pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html)
+
+
+```python
+import pandas as pd
+# Dataframes are another type of object which we are familiar with.
+
+df = pd.DataFrame({'price':[50,40,30],'sqft':[1000,950,500]})
+```
+
+
+```python
+type(df)
+```
+
+
+
+
+    pandas.core.frame.DataFrame
+
+
+
+Instance attributes are associated with each unique object.
+They describe characteristics of the object, and are accessed with dot notation like so:
+
+
+```python
+df.shape
+```
+
+
+
+
+    (3, 2)
+
+
+
+What are some other DataFrame attributes we know?:
+
+
+```python
+# answer
+```
+
+
+```python
+#__SOLUTION__
+# Other attributes
+print(df.columns)
+print(df.index)
+print(df.dtypes)
+print(df.T)
+```
+
+    Index(['price', 'sqft'], dtype='object')
+    RangeIndex(start=0, stop=3, step=1)
+    price    int64
+    sqft     int64
+    dtype: object
+              0    1    2
+    price    50   40   30
+    sqft   1000  950  500
+
+
+A **method** is what we call a function attached to an object
+
+
+```python
+df.info()
+```
+
+    <class 'pandas.core.frame.DataFrame'>
+    RangeIndex: 3 entries, 0 to 2
+    Data columns (total 2 columns):
+     #   Column  Non-Null Count  Dtype
+    ---  ------  --------------  -----
+     0   price   3 non-null      int64
+     1   sqft    3 non-null      int64
+    dtypes: int64(2)
+    memory usage: 176.0 bytes
+
+
+
+```python
+# isna() is a method that comes along with the DataFrame object
+df.isna()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>price</th>
+      <th>sqft</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+What other DataFrame methods do we know?
+
+
+```python
+#__SOLUTION__
+df.describe()
+df.copy()
+df.head()
+df.tail()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>price</th>
+      <th>sqft</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>50</td>
+      <td>1000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>40</td>
+      <td>950</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>30</td>
+      <td>500</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Pair Exercise
+
+Let's practice accessing the methods associated with the built in string class.  
+You are given a string below: 
+
+
+```python
+example = '   hELL0, w0RLD?   '
+```
+
+Your task is to fix is so it reads `Hello, World!` using string methods.  To practice chaining methods, try to do it in one line.
+Use the [documentation](https://docs.python.org/3/library/stdtypes.html#string-methods), and use the inspect library to see the names of methods.
+
+
+```python
+import inspect
 inspect.getmembers(example)
 ```
 
 
 
 
-    [('__abs__', <method-wrapper '__abs__' of int object at 0x102d8a5a0>),
-     ('__add__', <method-wrapper '__add__' of int object at 0x102d8a5a0>),
-     ('__and__', <method-wrapper '__and__' of int object at 0x102d8a5a0>),
-     ('__bool__', <method-wrapper '__bool__' of int object at 0x102d8a5a0>),
-     ('__ceil__', <function int.__ceil__>),
-     ('__class__', int),
-     ('__delattr__', <method-wrapper '__delattr__' of int object at 0x102d8a5a0>),
-     ('__dir__', <function int.__dir__()>),
-     ('__divmod__', <method-wrapper '__divmod__' of int object at 0x102d8a5a0>),
+    [('__add__', <method-wrapper '__add__' of str object at 0x115830078>),
+     ('__class__', str),
+     ('__contains__',
+      <method-wrapper '__contains__' of str object at 0x115830078>),
+     ('__delattr__', <method-wrapper '__delattr__' of str object at 0x115830078>),
+     ('__dir__', <function str.__dir__()>),
      ('__doc__',
-      "int([x]) -> integer\nint(x, base=10) -> integer\n\nConvert a number or string to an integer, or return 0 if no arguments\nare given.  If x is a number, return x.__int__().  For floating point\nnumbers, this truncates towards zero.\n\nIf x is not a number or if base is given, then x must be a string,\nbytes, or bytearray instance representing an integer literal in the\ngiven base.  The literal can be preceded by '+' or '-' and be surrounded\nby whitespace.  The base defaults to 10.  Valid bases are 0 and 2-36.\nBase 0 means to interpret the base from the string as an integer literal.\n>>> int('0b100', base=0)\n4"),
-     ('__eq__', <method-wrapper '__eq__' of int object at 0x102d8a5a0>),
-     ('__float__', <method-wrapper '__float__' of int object at 0x102d8a5a0>),
-     ('__floor__', <function int.__floor__>),
-     ('__floordiv__',
-      <method-wrapper '__floordiv__' of int object at 0x102d8a5a0>),
-     ('__format__', <function int.__format__(format_spec, /)>),
-     ('__ge__', <method-wrapper '__ge__' of int object at 0x102d8a5a0>),
+      "str(object='') -> str\nstr(bytes_or_buffer[, encoding[, errors]]) -> str\n\nCreate a new string object from the given object. If encoding or\nerrors is specified, then the object must expose a data buffer\nthat will be decoded using the given encoding and error handler.\nOtherwise, returns the result of object.__str__() (if defined)\nor repr(object).\nencoding defaults to sys.getdefaultencoding().\nerrors defaults to 'strict'."),
+     ('__eq__', <method-wrapper '__eq__' of str object at 0x115830078>),
+     ('__format__', <function str.__format__(format_spec, /)>),
+     ('__ge__', <method-wrapper '__ge__' of str object at 0x115830078>),
      ('__getattribute__',
-      <method-wrapper '__getattribute__' of int object at 0x102d8a5a0>),
-     ('__getnewargs__', <function int.__getnewargs__()>),
-     ('__gt__', <method-wrapper '__gt__' of int object at 0x102d8a5a0>),
-     ('__hash__', <method-wrapper '__hash__' of int object at 0x102d8a5a0>),
-     ('__index__', <method-wrapper '__index__' of int object at 0x102d8a5a0>),
-     ('__init__', <method-wrapper '__init__' of int object at 0x102d8a5a0>),
-     ('__init_subclass__', <function int.__init_subclass__>),
-     ('__int__', <method-wrapper '__int__' of int object at 0x102d8a5a0>),
-     ('__invert__', <method-wrapper '__invert__' of int object at 0x102d8a5a0>),
-     ('__le__', <method-wrapper '__le__' of int object at 0x102d8a5a0>),
-     ('__lshift__', <method-wrapper '__lshift__' of int object at 0x102d8a5a0>),
-     ('__lt__', <method-wrapper '__lt__' of int object at 0x102d8a5a0>),
-     ('__mod__', <method-wrapper '__mod__' of int object at 0x102d8a5a0>),
-     ('__mul__', <method-wrapper '__mul__' of int object at 0x102d8a5a0>),
-     ('__ne__', <method-wrapper '__ne__' of int object at 0x102d8a5a0>),
-     ('__neg__', <method-wrapper '__neg__' of int object at 0x102d8a5a0>),
-     ('__new__', <function int.__new__(*args, **kwargs)>),
-     ('__or__', <method-wrapper '__or__' of int object at 0x102d8a5a0>),
-     ('__pos__', <method-wrapper '__pos__' of int object at 0x102d8a5a0>),
-     ('__pow__', <method-wrapper '__pow__' of int object at 0x102d8a5a0>),
-     ('__radd__', <method-wrapper '__radd__' of int object at 0x102d8a5a0>),
-     ('__rand__', <method-wrapper '__rand__' of int object at 0x102d8a5a0>),
-     ('__rdivmod__', <method-wrapper '__rdivmod__' of int object at 0x102d8a5a0>),
-     ('__reduce__', <function int.__reduce__()>),
-     ('__reduce_ex__', <function int.__reduce_ex__(protocol, /)>),
-     ('__repr__', <method-wrapper '__repr__' of int object at 0x102d8a5a0>),
-     ('__rfloordiv__',
-      <method-wrapper '__rfloordiv__' of int object at 0x102d8a5a0>),
-     ('__rlshift__', <method-wrapper '__rlshift__' of int object at 0x102d8a5a0>),
-     ('__rmod__', <method-wrapper '__rmod__' of int object at 0x102d8a5a0>),
-     ('__rmul__', <method-wrapper '__rmul__' of int object at 0x102d8a5a0>),
-     ('__ror__', <method-wrapper '__ror__' of int object at 0x102d8a5a0>),
-     ('__round__', <function int.__round__>),
-     ('__rpow__', <method-wrapper '__rpow__' of int object at 0x102d8a5a0>),
-     ('__rrshift__', <method-wrapper '__rrshift__' of int object at 0x102d8a5a0>),
-     ('__rshift__', <method-wrapper '__rshift__' of int object at 0x102d8a5a0>),
-     ('__rsub__', <method-wrapper '__rsub__' of int object at 0x102d8a5a0>),
-     ('__rtruediv__',
-      <method-wrapper '__rtruediv__' of int object at 0x102d8a5a0>),
-     ('__rxor__', <method-wrapper '__rxor__' of int object at 0x102d8a5a0>),
-     ('__setattr__', <method-wrapper '__setattr__' of int object at 0x102d8a5a0>),
-     ('__sizeof__', <function int.__sizeof__()>),
-     ('__str__', <method-wrapper '__str__' of int object at 0x102d8a5a0>),
-     ('__sub__', <method-wrapper '__sub__' of int object at 0x102d8a5a0>),
-     ('__subclasshook__', <function int.__subclasshook__>),
-     ('__truediv__', <method-wrapper '__truediv__' of int object at 0x102d8a5a0>),
-     ('__trunc__', <function int.__trunc__>),
-     ('__xor__', <method-wrapper '__xor__' of int object at 0x102d8a5a0>),
-     ('bit_length', <function int.bit_length()>),
-     ('conjugate', <function int.conjugate>),
-     ('denominator', 1),
-     ('from_bytes', <function int.from_bytes(bytes, byteorder, *, signed=False)>),
-     ('imag', 0),
-     ('numerator', 1),
-     ('real', 1),
-     ('to_bytes', <function int.to_bytes(length, byteorder, *, signed=False)>)]
+      <method-wrapper '__getattribute__' of str object at 0x115830078>),
+     ('__getitem__', <method-wrapper '__getitem__' of str object at 0x115830078>),
+     ('__getnewargs__', <function str.__getnewargs__>),
+     ('__gt__', <method-wrapper '__gt__' of str object at 0x115830078>),
+     ('__hash__', <method-wrapper '__hash__' of str object at 0x115830078>),
+     ('__init__', <method-wrapper '__init__' of str object at 0x115830078>),
+     ('__init_subclass__', <function str.__init_subclass__>),
+     ('__iter__', <method-wrapper '__iter__' of str object at 0x115830078>),
+     ('__le__', <method-wrapper '__le__' of str object at 0x115830078>),
+     ('__len__', <method-wrapper '__len__' of str object at 0x115830078>),
+     ('__lt__', <method-wrapper '__lt__' of str object at 0x115830078>),
+     ('__mod__', <method-wrapper '__mod__' of str object at 0x115830078>),
+     ('__mul__', <method-wrapper '__mul__' of str object at 0x115830078>),
+     ('__ne__', <method-wrapper '__ne__' of str object at 0x115830078>),
+     ('__new__', <function str.__new__(*args, **kwargs)>),
+     ('__reduce__', <function str.__reduce__()>),
+     ('__reduce_ex__', <function str.__reduce_ex__(protocol, /)>),
+     ('__repr__', <method-wrapper '__repr__' of str object at 0x115830078>),
+     ('__rmod__', <method-wrapper '__rmod__' of str object at 0x115830078>),
+     ('__rmul__', <method-wrapper '__rmul__' of str object at 0x115830078>),
+     ('__setattr__', <method-wrapper '__setattr__' of str object at 0x115830078>),
+     ('__sizeof__', <function str.__sizeof__()>),
+     ('__str__', <method-wrapper '__str__' of str object at 0x115830078>),
+     ('__subclasshook__', <function str.__subclasshook__>),
+     ('capitalize', <function str.capitalize()>),
+     ('casefold', <function str.casefold()>),
+     ('center', <function str.center(width, fillchar=' ', /)>),
+     ('count', <function str.count>),
+     ('encode', <function str.encode(encoding='utf-8', errors='strict')>),
+     ('endswith', <function str.endswith>),
+     ('expandtabs', <function str.expandtabs(tabsize=8)>),
+     ('find', <function str.find>),
+     ('format', <function str.format>),
+     ('format_map', <function str.format_map>),
+     ('index', <function str.index>),
+     ('isalnum', <function str.isalnum()>),
+     ('isalpha', <function str.isalpha()>),
+     ('isascii', <function str.isascii()>),
+     ('isdecimal', <function str.isdecimal()>),
+     ('isdigit', <function str.isdigit()>),
+     ('isidentifier', <function str.isidentifier()>),
+     ('islower', <function str.islower()>),
+     ('isnumeric', <function str.isnumeric()>),
+     ('isprintable', <function str.isprintable()>),
+     ('isspace', <function str.isspace()>),
+     ('istitle', <function str.istitle()>),
+     ('isupper', <function str.isupper()>),
+     ('join', <function str.join(iterable, /)>),
+     ('ljust', <function str.ljust(width, fillchar=' ', /)>),
+     ('lower', <function str.lower()>),
+     ('lstrip', <function str.lstrip(chars=None, /)>),
+     ('maketrans', <function str.maketrans(x, y=None, z=None, /)>),
+     ('partition', <function str.partition(sep, /)>),
+     ('replace', <function str.replace(old, new, count=-1, /)>),
+     ('rfind', <function str.rfind>),
+     ('rindex', <function str.rindex>),
+     ('rjust', <function str.rjust(width, fillchar=' ', /)>),
+     ('rpartition', <function str.rpartition(sep, /)>),
+     ('rsplit', <function str.rsplit(sep=None, maxsplit=-1)>),
+     ('rstrip', <function str.rstrip(chars=None, /)>),
+     ('split', <function str.split(sep=None, maxsplit=-1)>),
+     ('splitlines', <function str.splitlines(keepends=False)>),
+     ('startswith', <function str.startswith>),
+     ('strip', <function str.strip(chars=None, /)>),
+     ('swapcase', <function str.swapcase()>),
+     ('title', <function str.title()>),
+     ('translate', <function str.translate(table, /)>),
+     ('upper', <function str.upper()>),
+     ('zfill', <function str.zfill(width, /)>)]
 
 
-
-Below, there are four different built in types. Each person will get a type.  
-Use inspect to find methods or attributes that either you:
-  - didn't know existsed
-  - forgot existed
-  - find especially useful
 
 
 ```python
-import numpy as np
-
-w = [1,2,3]
-x = {1:1, 2:2}
-y = 'A string'
-z = 1.5
-
-types = ['w', 'x', 'y', 'z']
-
-mccalister = ['Adam', 'Amanda','Chum', 'Dann', 
- 'Jacob', 'Jason', 'Johnhoy', 'Karim', 
-'Leana','Luluva', 'Matt', 'Maximilian', ]
-
-while len(mccalister) >= 3:
-    new_choices = np.random.choice(mccalister, 3, replace=False)
-    type_choice = np.random.choice(types, 1)
-    types.remove(type_choice)
-    print(new_choices, type_choice)
-    for choice in new_choices:
-        mccalister.remove(choice)
-
+# we can also use built in dir() method
+dir(example)
 ```
 
-    ['Adam' 'Jason' 'Leana'] ['w']
-    ['Karim' 'Amanda' 'Chum'] ['x']
-    ['Matt' 'Johnhoy' 'Maximilian'] ['y']
-    ['Jacob' 'Dann' 'Luluva'] ['z']
 
 
-# 3. Write a class definition, instantiate an object, define/inspect parameters, define/call class methods 
+
+    ['__add__',
+     '__class__',
+     '__contains__',
+     '__delattr__',
+     '__dir__',
+     '__doc__',
+     '__eq__',
+     '__format__',
+     '__ge__',
+     '__getattribute__',
+     '__getitem__',
+     '__getnewargs__',
+     '__gt__',
+     '__hash__',
+     '__init__',
+     '__init_subclass__',
+     '__iter__',
+     '__le__',
+     '__len__',
+     '__lt__',
+     '__mod__',
+     '__mul__',
+     '__ne__',
+     '__new__',
+     '__reduce__',
+     '__reduce_ex__',
+     '__repr__',
+     '__rmod__',
+     '__rmul__',
+     '__setattr__',
+     '__sizeof__',
+     '__str__',
+     '__subclasshook__',
+     'capitalize',
+     'casefold',
+     'center',
+     'count',
+     'encode',
+     'endswith',
+     'expandtabs',
+     'find',
+     'format',
+     'format_map',
+     'index',
+     'isalnum',
+     'isalpha',
+     'isascii',
+     'isdecimal',
+     'isdigit',
+     'isidentifier',
+     'islower',
+     'isnumeric',
+     'isprintable',
+     'isspace',
+     'istitle',
+     'isupper',
+     'join',
+     'ljust',
+     'lower',
+     'lstrip',
+     'maketrans',
+     'partition',
+     'replace',
+     'rfind',
+     'rindex',
+     'rjust',
+     'rpartition',
+     'rsplit',
+     'rstrip',
+     'split',
+     'splitlines',
+     'startswith',
+     'strip',
+     'swapcase',
+     'title',
+     'translate',
+     'upper',
+     'zfill']
+
+
+
+
+```python
+# Your code here
+```
+
+
+```python
+#__SOLUTION__
+example.swapcase().replace('0','o').strip().replace('?','!')
+```
+
+
+
+
+    'Hello, World!'
+
+
+
+# 4. Describe the relationship of classes and objectes, and learn to code classes
+
+Each object is an instance of a **class** that defines a bundle of attributes and functions (now, as proprietary to the object type, called *methods*), the point being that **every object of that class will automatically have those proprietary attributes and methods**.
+
+A class is like a blueprint that describes how to create a specific type of object.
+
+![blueprint](img/blueprint.jpeg)
+
 
 ## Classes
 
@@ -253,8 +636,8 @@ We can define **new** classes of objects altogether by using the keyword `class`
 
 ```python
 class Car:
-    """Transportation object"""
-    pass # This called a stub. It will allow us to create an empty class without and error
+    """Automotive object"""
+    pass # This called a stub. 
 ```
 
 
@@ -273,7 +656,7 @@ type(ferrari)
 
 
 ```python
-# We can give desceribe the ferrari as having four wheels
+# We can give describe the ferrari as having four wheels
 
 ferrari.wheels = 4
 ferrari.wheels
@@ -306,6 +689,7 @@ class Car:
 ```python
 civic = Car()
 civic.wheels
+
 ```
 
 
@@ -371,6 +755,7 @@ class Car:
 
     def honk(self):                   # These are methods we can call on *any* car.
         print('Beep beep')
+        
     
 ```
 
@@ -390,7 +775,7 @@ Wait a second, what's that `self` doing?
 
 ## Magic Methods
 
-It is common for a class to have magic methods. These are identifiable by the "dunder" (i.e. **d**ouble **under**score) prefixes and suffixes, such as `__init__()`. These methods will get called **automatically**, as we'll see below.
+It is common for a class to have magic methods. These are identifiable by the "dunder" (i.e. **d**ouble **under**score) prefixes and suffixes, such as `__init__()`. These methods will get called **automatically** as a result of a different call, as we'll see below.
 
 For more on these "magic methods", see [here](https://www.geeksforgeeks.org/dunder-magic-methods-python/).
 
@@ -405,10 +790,10 @@ class Car:
     
     WHEELS = 4                      # Capital letters mean wheels is a constant
     
-    def __init__(self, doors, sedan):
+    def __init__(self, doors, fwd):
         
         self.doors = doors
-        self.sedan = sedan
+        self.fwd = fwd
         
 
     def honk(self):                   # These are methods we can call on *any* car.
@@ -421,14 +806,12 @@ By adding doors and moving to init, we need to pass parameters when instantiatin
 
 ```python
 civic = Car(4, True)
-civic.doors
+print(civic.doors)
+print(civic.fwd)
 ```
 
-
-
-
     4
-
+    True
 
 
 We can also pass default arguments if there is a value for a certain parameter which is very common.
@@ -442,10 +825,10 @@ class Car:
     WHEELS = 4                     
     
     # default arguments included now in __init__
-    def __init__(self, doors=4, sedan=False):
+    def __init__(self, doors=4, fwd=False):
         
         self.doors = doors
-        self.sedan = sedan
+        self.fwd = fwd
         
 
     def honk(self):                  
@@ -455,8 +838,14 @@ class Car:
 
 
 ```python
-civic = Car(sedan=True)
+civic = Car()
+print(civic.doors)
+print(civic.fwd)
 ```
+
+    4
+    False
+
 
 #### Positional vs. Named arguments
 
@@ -465,20 +854,19 @@ civic = Car(sedan=True)
 # we can pass our arguments without names
 civic = Car(4, True)
 
-
 ```
 
 
 ```python
 # or with names
-civic = Car(doors=4, sedan=True)
+civic = Car(doors=4, fwd=True)
 
 ```
 
 
 ```python
 # or with a mix
-civic = Car(4, sedan=True)
+civic = Car(4, fwd=True)
 
 ```
 
@@ -489,7 +877,7 @@ civic = Car(doors = 4, True)
 ```
 
 
-      File "<ipython-input-29-6046029021d3>", line 2
+      File "<ipython-input-268-6046029021d3>", line 2
         civic = Car(doors = 4, True)
                               ^
     SyntaxError: positional argument follows keyword argument
@@ -507,10 +895,10 @@ class Car:
     WHEELS = 4                     
     
     # default arguments included now in __init__
-    def __init__(self, doors=4, sedan=False, driver_mood='peaceful'):
+    def __init__(self, doors=4, fwd=False, driver_mood='peaceful'):
         
         self.doors = doors
-        self.sedan = sedan
+        self.fwd = fwd
         self.driver_mood = driver_mood
         
 
@@ -551,10 +939,10 @@ class Car:
     """Automotive object"""
     
     # default arguments included now in __init__
-    def __init__(self, doors=4, sedan=False, driver_mood='peaceful'):
+    def __init__(self, doors=4, fwd=False, driver_mood='peaceful'):
         
         self.doors = doors
-        self.sedan = sedan
+        self.fwd = fwd
         self.driver_mood = driver_mood
         
     def honk(self):                   # These are methods we can call on *any* car.
@@ -572,12 +960,12 @@ class Car:
 #__SOLUTION__
 class Car:
     """Automotive object"""
-    
+    WHEELS = 4
      # default arguments included now in __init__
-    def __init__(self, doors=4, sedan=False, driver_mood='peaceful', moving=False):
+    def __init__(self, doors=4, fwd=False, driver_mood='peaceful', moving=False):
         
         self.doors = doors
-        self.sedan = sedan
+        self.fwd = fwd
         self.moving = moving
         self.driver_mood = driver_mood
 
@@ -613,11 +1001,37 @@ print(civic.moving)
     False
 
 
-## 4. Overview of inheritance
+## 5. Overview of inheritance
 
 We can also define classes in terms of *other* classes, in which cases the new classes **inherit** the attributes and methods from the classes in terms of which they're defined.
 
 Suppose we decided we want to create an electric car class.
+
+
+```python
+#  Then we can add more attributes
+class ElectricCar(Car):
+    """Automotive object"""
+    
+    pass
+```
+
+
+```python
+prius = ElectricCar()
+prius.honk()
+prius.WHEELS
+```
+
+    Beep beep
+
+
+
+
+
+    4
+
+
 
 
 ```python
@@ -630,15 +1044,6 @@ class ElectricCar(Car):
         super().__init__()
         self.hybrid = True 
 ```
-
-
-```python
-prius = ElectricCar()
-prius.honk()
-```
-
-    Beep beep
-
 
 
 ```python
@@ -676,7 +1081,7 @@ print(prius.driver_mood)
     serene
 
 
-## 5. Important data science tools through the lens of objects: 
+## 6. Important data science tools through the lens of objects: 
 
 We are becomming more and more familiar with a series of methods with names such as fit or fit_transform.
 
@@ -697,6 +1102,7 @@ What attributes and methods are available for a Standard Scaler object? Let's ch
 
 ```python
 from sklearn.preprocessing import StandardScaler
+import numpy as np
 
 # instantiate a standard scaler object
 ss = StandardScaler()
@@ -714,9 +1120,11 @@ print(series_1.mean())
 print(series_1.std())
 ```
 
-    3.0432788793378815
-    1.0030391214164902
+    2.9226012273753232
+    0.9780089271255945
 
+
+When we fit the standard scaler, it studies the object passed to it, and saves what is learned in its instance attributes
 
 
 ```python
@@ -729,7 +1137,7 @@ ss.scale_
 
 
 
-    array([1.00303912])
+    array([0.97800893])
 
 
 
@@ -742,7 +1150,7 @@ ss.mean_
 
 
 
-    array([3.04327888])
+    array([2.92260123])
 
 
 
@@ -760,7 +1168,7 @@ ss.transform([])
 
     ValueError                                Traceback (most recent call last)
 
-    <ipython-input-353-66adfde57247> in <module>
+    <ipython-input-304-66adfde57247> in <module>
           3 # What value should I put into the standard scaler to make the equality below return 0
           4 
     ----> 5 ss.transform([])
@@ -823,8 +1231,8 @@ ss.transform(random_numbers.reshape(-1,1))
 
 
 
-    array([[ 0.4520614 ],
-           [-0.18099312]])
+    array([[ 0.58702217],
+           [-0.06223412]])
 
 
 
@@ -864,7 +1272,7 @@ ss_df.transform([[5, 50]])
 
 
 
-## Exercise One-hot Encoder
+## Pair Exercise: One-hot Encoder
 
 Another object that you will use often is OneHotEncoder from sklearn. It is recommended over pd.get_dummies() because it can trained, with the learned informed stored in the attributes of the object.
 
@@ -1136,7 +1544,7 @@ oh_df.head()
 
 
 ```python
-# Now, add the onehotencoded columns to the original df, and drop the days column
+# Add the onehotencoded columns to the original df, and drop the days column
 
 ```
 
@@ -1235,3 +1643,8 @@ df.head()
 </div>
 
 
+
+
+```python
+
+```
