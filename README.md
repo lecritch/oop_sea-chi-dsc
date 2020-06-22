@@ -16,8 +16,7 @@
   - By becoming familiar with the principles of OOP, you will increase your knowledge of what's possible.  Much of what you might think you need to code by hand is already built into the objects.
   - With a knowledge of classes and how objects store information, you will develop a better sense of when the learning in machine learning occurs in the code, and after that learning occurs, how to access the information gained.
   - You become comfortable reading other people's code, which will improve your own code.
-  - Improving your code will separate you from other candidates on the job market and in interviews.
-  - You will also develop knowledge of the OOP family of programming languages, what are the strengths and weakness of Python, and the strengths and weaknesses of other language families.
+  - You will develop knowledge of the OOP family of programming languages, what are the strengths and weakness of Python, and the strengths and weaknesses of other language families.
 
   
 Let's begin by taking a look at the source code for [Sklearn's standard scalar](https://github.com/scikit-learn/scikit-learn/blob/fd237278e/sklearn/preprocessing/_data.py#L517)
@@ -128,7 +127,7 @@ A variable is a pointer to where an object is stored in memory.
 print(hex(id(x)))
 ```
 
-    0x1012d45e0
+    0x1098115e0
 
 
 
@@ -141,7 +140,7 @@ y = 3
 print(hex(id(y)))
 ```
 
-    0x1012d45e0
+    0x1098115e0
 
 
 
@@ -428,41 +427,41 @@ inspect.getmembers(example)
 
 
 
-    [('__add__', <method-wrapper '__add__' of str object at 0x115830078>),
+    [('__add__', <method-wrapper '__add__' of str object at 0x11c5b2300>),
      ('__class__', str),
      ('__contains__',
-      <method-wrapper '__contains__' of str object at 0x115830078>),
-     ('__delattr__', <method-wrapper '__delattr__' of str object at 0x115830078>),
+      <method-wrapper '__contains__' of str object at 0x11c5b2300>),
+     ('__delattr__', <method-wrapper '__delattr__' of str object at 0x11c5b2300>),
      ('__dir__', <function str.__dir__()>),
      ('__doc__',
       "str(object='') -> str\nstr(bytes_or_buffer[, encoding[, errors]]) -> str\n\nCreate a new string object from the given object. If encoding or\nerrors is specified, then the object must expose a data buffer\nthat will be decoded using the given encoding and error handler.\nOtherwise, returns the result of object.__str__() (if defined)\nor repr(object).\nencoding defaults to sys.getdefaultencoding().\nerrors defaults to 'strict'."),
-     ('__eq__', <method-wrapper '__eq__' of str object at 0x115830078>),
+     ('__eq__', <method-wrapper '__eq__' of str object at 0x11c5b2300>),
      ('__format__', <function str.__format__(format_spec, /)>),
-     ('__ge__', <method-wrapper '__ge__' of str object at 0x115830078>),
+     ('__ge__', <method-wrapper '__ge__' of str object at 0x11c5b2300>),
      ('__getattribute__',
-      <method-wrapper '__getattribute__' of str object at 0x115830078>),
-     ('__getitem__', <method-wrapper '__getitem__' of str object at 0x115830078>),
+      <method-wrapper '__getattribute__' of str object at 0x11c5b2300>),
+     ('__getitem__', <method-wrapper '__getitem__' of str object at 0x11c5b2300>),
      ('__getnewargs__', <function str.__getnewargs__>),
-     ('__gt__', <method-wrapper '__gt__' of str object at 0x115830078>),
-     ('__hash__', <method-wrapper '__hash__' of str object at 0x115830078>),
-     ('__init__', <method-wrapper '__init__' of str object at 0x115830078>),
+     ('__gt__', <method-wrapper '__gt__' of str object at 0x11c5b2300>),
+     ('__hash__', <method-wrapper '__hash__' of str object at 0x11c5b2300>),
+     ('__init__', <method-wrapper '__init__' of str object at 0x11c5b2300>),
      ('__init_subclass__', <function str.__init_subclass__>),
-     ('__iter__', <method-wrapper '__iter__' of str object at 0x115830078>),
-     ('__le__', <method-wrapper '__le__' of str object at 0x115830078>),
-     ('__len__', <method-wrapper '__len__' of str object at 0x115830078>),
-     ('__lt__', <method-wrapper '__lt__' of str object at 0x115830078>),
-     ('__mod__', <method-wrapper '__mod__' of str object at 0x115830078>),
-     ('__mul__', <method-wrapper '__mul__' of str object at 0x115830078>),
-     ('__ne__', <method-wrapper '__ne__' of str object at 0x115830078>),
+     ('__iter__', <method-wrapper '__iter__' of str object at 0x11c5b2300>),
+     ('__le__', <method-wrapper '__le__' of str object at 0x11c5b2300>),
+     ('__len__', <method-wrapper '__len__' of str object at 0x11c5b2300>),
+     ('__lt__', <method-wrapper '__lt__' of str object at 0x11c5b2300>),
+     ('__mod__', <method-wrapper '__mod__' of str object at 0x11c5b2300>),
+     ('__mul__', <method-wrapper '__mul__' of str object at 0x11c5b2300>),
+     ('__ne__', <method-wrapper '__ne__' of str object at 0x11c5b2300>),
      ('__new__', <function str.__new__(*args, **kwargs)>),
      ('__reduce__', <function str.__reduce__()>),
      ('__reduce_ex__', <function str.__reduce_ex__(protocol, /)>),
-     ('__repr__', <method-wrapper '__repr__' of str object at 0x115830078>),
-     ('__rmod__', <method-wrapper '__rmod__' of str object at 0x115830078>),
-     ('__rmul__', <method-wrapper '__rmul__' of str object at 0x115830078>),
-     ('__setattr__', <method-wrapper '__setattr__' of str object at 0x115830078>),
+     ('__repr__', <method-wrapper '__repr__' of str object at 0x11c5b2300>),
+     ('__rmod__', <method-wrapper '__rmod__' of str object at 0x11c5b2300>),
+     ('__rmul__', <method-wrapper '__rmul__' of str object at 0x11c5b2300>),
+     ('__setattr__', <method-wrapper '__setattr__' of str object at 0x11c5b2300>),
      ('__sizeof__', <function str.__sizeof__()>),
-     ('__str__', <method-wrapper '__str__' of str object at 0x115830078>),
+     ('__str__', <method-wrapper '__str__' of str object at 0x11c5b2300>),
      ('__subclasshook__', <function str.__subclasshook__>),
      ('capitalize', <function str.capitalize()>),
      ('casefold', <function str.casefold()>),
@@ -714,6 +713,7 @@ class Car:
 ```python
 ferrari = Car()
 ferrari.doors
+
 ```
 
 
@@ -877,7 +877,7 @@ civic = Car(doors = 4, True)
 ```
 
 
-      File "<ipython-input-268-6046029021d3>", line 2
+      File "<ipython-input-60-6046029021d3>", line 2
         civic = Car(doors = 4, True)
                               ^
     SyntaxError: positional argument follows keyword argument
@@ -1120,8 +1120,8 @@ print(series_1.mean())
 print(series_1.std())
 ```
 
-    2.9226012273753232
-    0.9780089271255945
+    2.9939080474222566
+    0.9723918679752294
 
 
 When we fit the standard scaler, it studies the object passed to it, and saves what is learned in its instance attributes
@@ -1137,7 +1137,7 @@ ss.scale_
 
 
 
-    array([0.97800893])
+    array([0.97239187])
 
 
 
@@ -1150,7 +1150,7 @@ ss.mean_
 
 
 
-    array([2.92260123])
+    array([2.99390805])
 
 
 
@@ -1168,7 +1168,7 @@ ss.transform([])
 
     ValueError                                Traceback (most recent call last)
 
-    <ipython-input-304-66adfde57247> in <module>
+    <ipython-input-77-66adfde57247> in <module>
           3 # What value should I put into the standard scaler to make the equality below return 0
           4 
     ----> 5 ss.transform([])
@@ -1231,8 +1231,8 @@ ss.transform(random_numbers.reshape(-1,1))
 
 
 
-    array([[ 0.58702217],
-           [-0.06223412]])
+    array([[ 0.51708177],
+           [-0.13592498]])
 
 
 
